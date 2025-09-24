@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Atel — Mobile Parts & Service | Combos, LCDs, Spares</title>
+<meta name="description" content="Atel Mobile Shop — Combos, LCD screens, spare parts, and accessories. Quick replacement and quality parts at the best prices." />
+
+<!-- Favicon and App Icons -->
+<link rel="icon" type="image/png" sizes="32x32" href="atelLogo.png">
+<link rel="icon" type="image/png" sizes="16x16" href="atelLogo.png">
+<link rel="apple-touch-icon" sizes="180x180" href="atelLogo.png">
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiQXRlbCBNb2JpbGUgUGFydHMiLCJzaG9ydF9uYW1lIjoiQXRlbCIsImljb25zIjpbeyJzcmMiOiJhdGVsTG9nby5wbmciLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2UvcG5nIn1dLCJ0aGVtZV9jb2xvciI6IiNmZjMzMzMiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI2ZmZmZmZiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIn0=">
+<meta name="theme-color" content="#ff3333">
+<meta name="msapplication-TileColor" content="#ff3333">
+<meta name="msapplication-TileImage" content="atelLogo.png">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --panel:#fff5f5; --text:#333333; --muted:#666666;
+    --brand:#ff3333; --accent:#ffd700; --ok:#34d399; --warn:#f59e0b;
+    --card:#ffffff; --border:rgba(255,51,51,0.15); --shadow:0 12px 30px rgba(255,51,51,0.08);
+    --r:16px;
+  }
+  *{box-sizing:border-box}
+  html{
+    scroll-behavior:smooth;
+    scroll-padding-top:80px;
+  }
+  html,body{margin:0}
+  
+  /* Animation Utilities */
+  .reveal {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 1s cubic-bezier(0.17, 0.55, 0.55, 1);
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: all 1s cubic-bezier(0.17, 0.55, 0.55, 1);
+  }
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(100px);
+    transition: all 1s cubic-bezier(0.17, 0.55, 0.55, 1);
+  }
+  .reveal-left.active, .reveal-right.active {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.8s cubic-bezier(0.17, 0.55, 0.55, 1);
+  }
+  .reveal-scale.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .reveal-rotate {
+    opacity: 0;
+    transform: rotate(-5deg) translateY(50px);
+    transition: all 0.8s cubic-bezier(0.17, 0.55, 0.55, 1);
+  }
+  .reveal-rotate.active {
+    opacity: 1;
+    transform: rotate(0) translateY(0);
+  }
+  
+  /* Add stagger effect to children */
+  .stagger-children > * {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.5s cubic-bezier(0.17, 0.55, 0.55, 1);
+  }
+  .stagger-children.active > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .stagger-children.active > *:nth-child(1) { transition-delay: 0.1s; }
+  .stagger-children.active > *:nth-child(2) { transition-delay: 0.2s; }
+  .stagger-children.active > *:nth-child(3) { transition-delay: 0.3s; }
+  .stagger-children.active > *:nth-child(4) { transition-delay: 0.4s; }
+  .stagger-children.active > *:nth-child(5) { transition-delay: 0.5s; }
+  .stagger-children.active > *:nth-child(6) { transition-delay: 0.6s; }
+  
+  /* Parallax effect */
+  .parallax {
+    transition: transform 0.3s cubic-bezier(0.17, 0.55, 0.55, 1);
+  }
+  body{
+    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    background:
+      radial-gradient(1000px 800px at 100% -10%, rgba(255,51,51,.08), transparent 55%),
+      radial-gradient(900px 700px at -10% 0%, rgba(255,215,0,.08), transparent 60%),
+      linear-gradient(to bottom right, #ffffff, #fff5f5);
+    color:var(--text); line-height:1.6;
+  }
+  a{color:inherit;text-decoration:none}
+  .container{max-width:1180px;margin:0 auto;padding:0 20px}
+  /* Header */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:white;
+    border-bottom:1px solid var(--border);
+    box-shadow:0 4px 20px rgba(255,51,51,0.08);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:80px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    padding:4px;
+    transition:transform .3s ease;
+  }
+  .brand:hover {
+    transform:translateY(-2px);
+  }
+  .brand img{
+    width:160px;
+    height:auto;
+    transition: transform .3s ease;
+  }
+  .brand:hover img {
+    transform: scale(1.02);
+  }
+  .nav-right{
+    display:flex;
+    gap:14px;
+    align-items:center;
+  }
+  .btn{
+    padding:12px 20px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    font-weight:600;
+    transition:all .4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    font-size:15px;
+    letter-spacing:0.3px;
+    position:relative;
+    overflow:hidden;
+  }
+  .btn::after {
+    content:'';
+    position:absolute;
+    height:150px;
+    width:40px;
+    background:rgba(255,255,255,.2);
+    left:-100px;
+    top:-50px;
+    transform:rotate(37deg);
+    transition:all .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    pointer-events:none;
+  }
+  .btn:hover{
+    border-color:var(--brand);
+    box-shadow:0 10px 24px rgba(255,51,51,.12);
+    transform:translateY(-2px);
+  }
+  .btn:hover::after {
+    left:120%;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg,var(--brand),var(--accent));
+    color:#ffffff;
+    border-color:transparent;
+    font-weight:600;
+    position:relative;
+    z-index:1;
+    overflow:hidden;
+  }
+  .btn-primary::before {
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(135deg,var(--accent),var(--brand));
+    opacity:0;
+    transition:all .4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index:-1;
+  }
+  .btn-primary:hover::before {
+    opacity:1;
+  }
+  .btn-primary:active {
+    transform:scale(0.98);
+  }
+  /* Hero */
+  .hero{padding:80px 0 64px}
+  .grid-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+  .badge{
+    display:inline-flex;
+    gap:10px;
+    align-items:center;
+    font-size:13px;
+    color:var(--brand);
+    background:linear-gradient(135deg, rgba(255,51,51,.1), rgba(255,215,0,.1));
+    border:1px solid var(--border);
+    padding:10px 16px;
+    border-radius:999px;
+    font-weight:500;
+    letter-spacing:0.5px;
+  }
+  h1{
+    font-size:48px;
+    line-height:1.2;
+    margin:16px 0 12px;
+    letter-spacing:-0.5px;
+  }
+  .lead{color:var(--muted);max-width:60ch}
+  .hero-card{background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.0));
+    border:1px solid var(--border); border-radius:var(--r); padding:18px; box-shadow:var(--shadow)}
+  .hero-img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:14px;border:1px solid var(--border)}
+  /* Filters */
+  .filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:18px 0}
+  .chip{padding:8px 12px;border:1px solid var(--border);border-radius:999px;color:var(--muted);cursor:pointer}
+  .chip.active{background:rgba(255,51,51,.1); border-color:var(--brand)}
+  .search{flex:1;min-width:220px}
+  .input{width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--panel);color:var(--text)}
+  /* Products */
+  section{padding:38px 0}
+  .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .section-title h2{margin:0;font-size:24px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:12px 0}
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:24px;
+    overflow:hidden;
+    transition:all .4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow:var(--shadow);
+    position:relative;
+    animation: cardFadeIn .6s ease forwards;
+  }
+  @keyframes cardFadeIn {
+    from {
+      opacity:0;
+      transform:translateY(30px);
+    }
+    to {
+      opacity:1;
+      transform:translateY(0);
+    }
+  }
+  .card:hover{
+    transform:translateY(-8px) scale(1.02);
+    border-color:rgba(255,51,51,.28);
+    box-shadow:0 20px 40px rgba(255,51,51,0.15);
+  }
+  .card::after {
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at center, rgba(255,51,51,0.1) 0%, transparent 70%);
+    opacity:0;
+    transition:opacity .3s ease;
+    pointer-events:none;
+  }
+  .card:hover::after {
+    opacity:1;
+  }
+  .card img{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    transition:all .5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  .card:hover img{
+    transform:scale(1.08);
+  }
+  .p{padding:20px}
+  .meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:12px;
+    gap:10px
+  }
+  .price{
+    font-weight:700;
+    font-size:16px;
+    background:linear-gradient(135deg,var(--brand),var(--accent));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .tag{
+    font-size:12px;
+    color:var(--brand);
+    background:rgba(255,51,51,.08);
+    border:1px solid rgba(255,51,51,.2);
+    padding:8px 14px;
+    border-radius:999px;
+    font-weight:500;
+    letter-spacing:0.3px;
+  }
+  .card strong {
+    font-size:17px;
+    display:block;
+    margin-bottom:8px;
+    line-height:1.4;
+    background:linear-gradient(135deg,var(--text),var(--muted));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  /* CTA Bar (mobile) */
+  .cta-bar{
+    position:fixed;bottom:16px;left:50%;transform:translateX(-50%);
+    display:flex;gap:8px;z-index:60
+  }
+  .cta-bar a{border-radius:999px}
+  /* Contact / Info */
+  .info{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  form{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px}
+  label{font-size:13px;color:var(--muted)}
+  select,textarea{width:100%}
+  textarea{min-height:120px}
+  .note{font-size:12px;color:var(--muted)}
+  .success{color:var(--ok);font-weight:600}
+  .error{color:var(--brand);font-weight:600}
+  /* Modal */
+  .modal{position:fixed;inset:0;background:rgba(255,51,51,.15);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:80}
+  .modal.active{display:flex}
+  .modal-card{background:var(--panel);border:1px solid var(--border);border-radius:18px;max-width:480px;width:92%;padding:18px}
+  /* Footer */
+  footer{border-top:1px solid var(--border);padding:22px 0;color:var(--muted);font-size:14px}
+  /* Responsive */
+  @media (max-width:1024px){.grid{grid-template-columns:repeat(2,1fr)} .grid-hero{grid-template-columns:1fr}}
+  @media (max-width:640px){
+    h1{font-size:32px} .grid{grid-template-columns:1fr}
+    .info{grid-template-columns:1fr}
+    .nav-right .btn{display:none}
+  }
+</style>
+
+<!-- Schema.org -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobilePhoneStore",
+  "name": "Atel",
+  "image": "https://your-domain.com/logo.png",
+  "url": "https://your-domain.com",
+  "telephone": "+91-90388-94854",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "25, Karl Marx Sarani, Kanchan Colony, Babu Bazar, Khidirpur",
+    "addressLocality": "Kolkata",
+    "addressRegion": "West Bengal",
+    "postalCode": "700023",
+    "addressCountry": "IN"
+  },
+  "openingHours": "Mo-Su 10:00-20:00",
+  "founder": ["Farhan Razza"],
+  "sameAs": ["https://wa.me/919038894854"]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <img src="atelLogo.png" alt="Atel Logo" style="object-fit:contain">
+    </div>
+    <div class="nav-right">
+      <a href="tel:+919038894854" class="btn">📞 Call</a>
+      <a href="https://wa.me/919038894854" target="_blank" class="btn">💬 WhatsApp</a>
+      <a href="#contact" class="btn btn-primary">Enquire</a>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container grid-hero">
+    <div>
+      <span class="badge">📱 Combos • LCDs • Spares • Repairs</span>
+      <h1>Quality mobile parts at the best prices — <span style="background:linear-gradient(90deg,var(--brand),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700">Combos, LCDs & more</span>.</h1>
+      <p class="lead">We stock trusted, tested components for major brands. Same-day replacements, fair pricing, and guaranteed support.</p>
+
+      <!-- Filters -->
+      <div class="filters">
+        <button class="chip active" data-filter="all">All</button>
+        <button class="chip" data-filter="combo">Combos</button>
+        <button class="chip" data-filter="lcd">LCDs</button>
+        <button class="chip" data-filter="spare">Spares</button>
+        <div class="search">
+          <input id="search" class="input" placeholder="Search model (e.g., iPhone 11, Redmi Note 10)"/>
+        </div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <img class="hero-img" src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1400&auto=format&fit=crop" alt="Mobile parts">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+        <span class="tag">Original & OEM</span>
+        <span class="tag">Warranty Support</span>
+        <span class="tag">Bulk Orders</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Products -->
+<section id="products">
+  <div class="container">
+    <div class="section-title">
+      <h2>Featured Products</h2>
+      <a href="#contact" class="btn">Need something specific?</a>
+    </div>
+
+    <div class="grid" id="productGrid">
+      <!-- Featured Products -->
+      <article class="card" data-cat="combo" data-name="iPhone Display Combos">
+        <img src="https://ik.imagekit.io/emafiya147/tr:h-934,w-700,q-80,cm-pad_resize/media/catalog/product/x/_/x_3.jpg" alt="iPhone Display Combos" loading="lazy">
+        <div class="p">
+          <strong>iPhone — All Models Display Combos</strong>
+          <div class="meta">
+            <span class="price">₹ Best Price</span>
+            <div style="display:flex;gap:8px">
+              <span class="tag">All Parts</span>
+              <a href="https://wa.me/919038894854" target="_blank" class="btn">Contact</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-cat="lcd" data-name="Samsung Display Collection">
+        <img src="https://www.mobilemultiple.com/wp-content/uploads/2022/05/1000091504_20240610_192913_0002.jpg" alt="Samsung Displays" loading="lazy">
+        <div class="p">
+          <strong>Samsung — LCD, PDA & Combos</strong>
+          <div class="meta">
+            <span class="price">₹ Best Price</span>
+            <div style="display:flex;gap:8px">
+              <span class="tag">All Parts</span>
+              <a href="https://wa.me/919038894854" target="_blank" class="btn">Contact</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-cat="combo" data-name="OnePlus Collection">
+        <img src="https://www.oneplusservicecenterinchennai.co.in/wp-content/uploads/2024/06/OnePlus-9-Pro-Display-and-Touch-Screen-Combo-Replacement-Price-in-Chennai-India-1.jpg" alt="OnePlus Parts" loading="lazy">
+        <div class="p">
+          <strong>OnePlus — All Display Parts</strong>
+          <div class="meta">
+            <span class="price">₹ Best Price</span>
+            <div style="display:flex;gap:8px">
+              <span class="tag">All Parts</span>
+              <button class="btn enquire" data-title="OnePlus Parts">Enquire</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-cat="combo" data-name="Google Pixel Collection">
+        <img src="https://5.imimg.com/data5/SELLER/Default/2022/3/MS/SJ/OP/44779649/lcd-screen-digitizer-for-google-pixel-6-black-by-fixbhi-com-1-500x500.jpg" alt="Pixel Display Parts" loading="lazy">
+        <div class="p">
+          <strong>Google Pixel — Display & Parts</strong>
+          <div class="meta">
+            <span class="price">₹ Best Price</span>
+            <div style="display:flex;gap:8px">
+              <span class="tag">All Parts</span>
+              <button class="btn enquire" data-title="Google Pixel Parts">Enquire</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-cat="lcd" data-name="Realme Collection">
+        <img src="https://m.media-amazon.com/images/I/716s8u1cw3L.jpg" alt="Realme Parts" loading="lazy">
+        <div class="p">
+          <strong>Realme — LCD, PDA & Combos</strong>
+          <div class="meta">
+            <span class="price">₹ Best Price</span>
+            <div style="display:flex;gap:8px">
+              <span class="tag">All Parts</span>
+              <button class="btn enquire" data-title="Realme Display Parts">Enquire</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-cat="combo" data-name="Redmi Collection">
+        <img src="https://ik.imagekit.io/emafiya147/tr:h-934,w-700,q-80,cm-pad_resize/media/catalog/product/1/1/11e_2.jpg" alt="Redmi Parts" loading="lazy">
+        <div class="p">
+          <strong>Redmi/Mi — All Display Parts</strong>
+          <div class="meta">
+            <span class="price">₹ Best Price</span>
+            <div style="display:flex;gap:8px">
+              <span class="tag">All Parts</span>
+              <button class="btn enquire" data-title="Redmi/Mi Parts">Enquire</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-cat="combo" data-name="Nothing Phone Collection">
+        <img src="https://m.media-amazon.com/images/I/51IgjekVf3L.jpg" alt="Nothing Phone Parts" loading="lazy">
+        <div class="p">
+          <strong>Nothing Phone — All Parts</strong>
+          <div class="meta">
+            <span class="price">₹ Best Price</span>
+            <div style="display:flex;gap:8px">
+              <span class="tag">All Parts</span>
+              <button class="btn enquire" data-title="Nothing Phone Parts">Enquire</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-cat="combo" data-name="Motorola Collection">
+        <img src="https://m.media-amazon.com/images/I/51nFqy59OFL._UF1000,1000_QL80_.jpg" alt="Motorola Parts" loading="lazy">
+        <div class="p">
+          <strong>Motorola — Display & Parts</strong>
+          <div class="meta">
+            <span class="price">₹ Best Price</span>
+            <div style="display:flex;gap:8px">
+              <span class="tag">All Parts</span>
+              <button class="btn enquire" data-title="Motorola Parts">Enquire</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-cat="lcd" data-name="OPPO Collection">
+        <img src="https://ik.imagekit.io/emafiya147/tr:h-934,w-700,q-80,cm-pad_resize/media/catalog/product/a/5/a544g_1.jpg" alt="OPPO Parts" loading="lazy">
+        <div class="p">
+          <strong>OPPO — LCD, PDA & Combos</strong>
+          <div class="meta">
+            <span class="price">₹ Best Price</span>
+            <div style="display:flex;gap:8px">
+              <span class="tag">All Parts</span>
+              <button class="btn enquire" data-title="OPPO Display Parts">Enquire</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-cat="lcd" data-name="Vivo Collection">
+        <img src="https://ik.imagekit.io/emafiya147/tr:h-934,w-700,q-80,cm-pad_resize/media/catalog/product/t/1/t1_1.jpg" alt="Vivo Parts" loading="lazy">
+        <div class="p">
+          <strong>Vivo — LCD, PDA & Combos</strong>
+          <div class="meta">
+            <span class="price">₹ Best Price</span>
+            <div style="display:flex;gap:8px">
+              <span class="tag">All Parts</span>
+              <button class="btn enquire" data-title="Vivo Display Parts">Enquire</button>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Store Info & Contact -->
+<section id="contact">
+  <div class="container">
+    <div class="section-title">
+      <h2>Contact & Store Info</h2>
+      <div style="display:flex;gap:10px">
+        <a href="tel:+919038894854" class="btn">📞 Call Now</a>
+        <a href="https://wa.me/919038894854" target="_blank" class="btn btn-primary">💬 WhatsApp</a>
+      </div>
+    </div>
+    <div class="info">
+      <div class="hero-card" style="height:fit-content">
+        <h3 style="margin:0 0 16px">Quick Contact</h3>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div>
+            <div class="note">WhatsApp / Call</div>
+            <div style="font-size:18px;font-weight:600">+91 90388 94854</div>
+          </div>
+          <div>
+            <div class="note">Business Hours</div>
+            <div>Mon–Sun: 10:00 AM – 8:00 PM</div>
+          </div>
+          <div>
+            <div class="note">Available For</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+              <span class="tag">Combos</span>
+              <span class="tag">LCD</span>
+              <span class="tag">PDA</span>
+              <span class="tag">Spare Parts</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3 style="margin:0 0 10px">Visit Atel</h3>
+        <div class="note">Address</div>
+        <div>25, Karl Marx Sarani, Kanchan Colony,<br>Babu Bazar, Khidirpur,<br>Kolkata, West Bengal 700023</div>
+        <div class="note" style="margin-top:12px">Owners</div>
+        <div>Farhan Razza</div>
+        <div class="note" style="margin-top:12px">Hours</div>
+        <div>Mon–Sun: 10:00 AM – 8:00 PM</div>
+        <div class="note" style="margin-top:12px">Phone</div>
+        <div>+91 90388 94854</div>
+        <div style="margin-top:14px">
+          <iframe title="Map" width="100%" height="230" style="border:1px solid var(--border);border-radius:14px" loading="lazy" allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=25+Karl+Marx+Sarani+Kanchan+Colony+Babu+Bazar+Khidirpur+Kolkata+700023&output=embed"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Floating CTA (mobile) -->
+<div class="cta-bar">
+  <a href="tel:+919038894854" class="btn btn-primary">📞 Call</a>
+  <a href="https://wa.me/919038894854" target="_blank" class="btn">💬 WhatsApp</a>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <img src="atelLogo.png" alt="Atel Logo" class="footer-logo">
+        <p class="footer-about">Your trusted source for mobile parts and repairs. Quality assured with expert service.</p>
+        <div class="social-links">
+          <a href="https://wa.me/919038894854" target="_blank" class="social-btn">
+            <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a href="tel:+919038894854" class="social-btn">
+            <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+          </a>
+          <a href="https://maps.google.com/?q=25+Karl+Marx+Sarani+Kanchan+Colony+Babu+Bazar+Khidirpur+Kolkata+700023" target="_blank" class="social-btn">
+            <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+          </a>
+        </div>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#products">Products</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="https://wa.me/919038894854">WhatsApp Order</a></li>
+          <li><a href="tel:+919038894854">Call Now</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul class="footer-links">
+          <li><a href="#products">Display Combos</a></li>
+          <li><a href="#products">LCD Screens</a></li>
+          <li><a href="#products">PDA Panels</a></li>
+          <li><a href="#products">Spare Parts</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Visit Us</h4>
+        <address class="footer-address">
+          25, Karl Marx Sarani,<br>
+          Kanchan Colony, Babu Bazar,<br>
+          Khidirpur, Kolkata,<br>
+          West Bengal 700023
+        </address>
+        <div class="footer-hours">
+          <strong>Hours:</strong><br>
+          Mon–Sun: 10:00 AM – 8:00 PM
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© <span id="year"></span> Atel — All rights reserved</div>
+      <div class="footer-badges">
+        <span>✓ Genuine Parts</span>
+        <span>🛡️ Quality Assured</span>
+        <span>⚡ Expert Service</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--panel);
+    padding: 60px 0 30px;
+    margin-top: 60px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+
+  .footer-logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 15px;
+  }
+
+  .footer-about {
+    color: var(--muted);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 12px;
+  }
+
+  .social-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand);
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+  }
+
+  .social-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--brand);
+    box-shadow: 0 5px 15px rgba(255,51,51,0.1);
+  }
+
+  .footer h4 {
+    color: var(--text);
+    font-size: 16px;
+    margin: 0 0 20px;
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-links li {
+    margin-bottom: 12px;
+  }
+
+  .footer-links a {
+    color: var(--muted);
+    transition: color 0.3s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--brand);
+  }
+
+  .footer-address {
+    color: var(--muted);
+    font-style: normal;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+
+  .footer-hours {
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .footer-bottom {
+    padding-top: 30px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .footer-badges {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-badges span {
+    color: var(--brand);
+  }
+
+  @media (max-width: 1024px) {
+    .footer-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    .footer-bottom {
+      flex-direction: column;
+      gap: 15px;
+      text-align: center;
+    }
+    .footer-badges {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Filters
+  const chips = document.querySelectorAll('.chip');
+  const grid = document.getElementById('productGrid');
+  const cards = Array.from(grid.querySelectorAll('.card'));
+  const search = document.getElementById('search');
+
+  function applyFilters() {
+    const activeChip = document.querySelector('.chip.active');
+    const cat = activeChip ? activeChip.dataset.filter : 'all';
+    const q = (search.value || '').toLowerCase().trim();
+
+    cards.forEach(card=>{
+      const inCat = cat === 'all' || card.dataset.cat === cat;
+      const inSearch = !q || (card.dataset.name || '').toLowerCase().includes(q);
+      card.style.display = (inCat && inSearch) ? '' : 'none';
+    });
+  }
+  chips.forEach(c=>{
+    c.addEventListener('click', ()=>{
+      chips.forEach(x=>x.classList.remove('active'));
+      c.classList.add('active'); applyFilters();
+    });
+  });
+  search.addEventListener('input', applyFilters);
+
+  // Enquiry modal
+  const modal = document.getElementById('enquiryModal');
+  const prodTitle = document.getElementById('prodTitle');
+  document.querySelectorAll('.enquire').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      prodTitle.value = btn.dataset.title || '';
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden','false');
+    });
+  });
+  document.getElementById('closeModal').addEventListener('click', ()=>{
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden','true');
+  });
+  modal.addEventListener('click', (e)=>{ if(e.target===modal){ modal.classList.remove('active'); modal.setAttribute('aria-hidden','true'); } });
+
+  // Scroll animations
+  const animateOnScroll = () => {
+    const elements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-rotate, .stagger-children');
+    const triggerBottom = window.innerHeight * 0.8;
+
+    elements.forEach(element => {
+      const elementTop = element.getBoundingClientRect().top;
+      if (elementTop < triggerBottom) {
+        element.classList.add('active');
+      }
+    });
+
+    // Parallax effect
+    document.querySelectorAll('.parallax').forEach(element => {
+      const speed = element.dataset.speed || 0.2;
+      const elementTop = element.getBoundingClientRect().top;
+      const parallaxOffset = elementTop * speed;
+      element.style.transform = `translateY(${parallaxOffset}px)`;
+    });
+  };
+
+  // Initialize animations
+  window.addEventListener('scroll', animateOnScroll);
+  window.addEventListener('resize', animateOnScroll);
+  animateOnScroll(); // Initial check
+
+  // Add animation classes to elements
+  document.querySelector('.hero').classList.add('reveal');
+  document.querySelector('.grid').classList.add('stagger-children');
+  document.querySelector('.hero-card').classList.add('reveal-scale');
+  document.querySelector('.badge').classList.add('reveal-rotate');
+  document.querySelectorAll('section').forEach((section, index) => {
+    if (index % 2 === 0) {
+      section.classList.add('reveal-left');
+    } else {
+      section.classList.add('reveal-right');
+    }
+  });
+  
+  // Add parallax to background elements
+  document.querySelector('.hero-img').classList.add('parallax');
+  document.querySelector('.hero-img').dataset.speed = '0.15';
+
+  // Year in footer
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
